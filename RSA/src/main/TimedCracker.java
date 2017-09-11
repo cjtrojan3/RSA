@@ -1,5 +1,6 @@
 package main;
 
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
@@ -9,15 +10,27 @@ public class TimedCracker {
 	private static BigInteger[] cipherMessage;
 	
 	public static void main(String[] args) {
-		for(int i = 14; i<=100; ++i) {
-			calculateValues(i);
-			encryptMessage();
-//			System.out.println("i: " + i + " P: " + P + " Q: " + Q + " PQ: " + PQ);
-			long startTime = System.currentTimeMillis();
-			decryptMessage();
-			long endTime = System.currentTimeMillis();
-			System.out.println("Time for a bitlength of " + i + ": " + (endTime-startTime));
+		PrintWriter writer = null;
+		try {
+			
+			writer = new PrintWriter("aaa.txt", "UTF-8");
+			
+			for(int i = 14; i<=62; ++i) {
+				calculateValues(i);
+				encryptMessage();
+				long startTime = System.currentTimeMillis();
+				decryptMessage();
+				long endTime = System.currentTimeMillis();
+				System.out.println("Time for a bitlength of " + i + ": " + (endTime-startTime));
+				writer.println(i+"\t"+(endTime-startTime));
+			}
+			writer.close();
 		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 
 	}
 	
