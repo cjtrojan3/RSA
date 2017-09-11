@@ -24,17 +24,14 @@ public class Cracker {
 			}
 		}
 		//At this point, we have found P and Q
-		System.out.println("P: " + P + "\nQ: " + Q);
 		
 		//Find PhiPQ
 		BigInteger PhiPQ = (P.subtract(BigInteger.ONE)).multiply(Q.subtract(BigInteger.ONE));
-		System.out.println("PhiPQ: " + PhiPQ);
 		
 		//Find D
 		BigInteger D = E.modInverse(PhiPQ);
-		System.out.println("D: " + D);
 		
-		//Decrypt the message now
+		//Bring in the encrypted message
 		ArrayList<BigInteger> hiddenMessage = new ArrayList<BigInteger>();
 		String decodedMessage = "";
 		hiddenMessage.add(new BigInteger("576322461849"));
@@ -46,6 +43,7 @@ public class Cracker {
 		hiddenMessage.add(new BigInteger("120078454173"));
 		hiddenMessage.add(new BigInteger("42618442977"));
 		
+		//Decrypt the message now
 		for(BigInteger i : hiddenMessage) {
 			BigInteger m = i.modPow(D, PQ);
 			decodedMessage += (char)(m.intValue());
